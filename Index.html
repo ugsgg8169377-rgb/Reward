@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexusDrop — Gaming Mods & Currency Hub</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card: #131a2a;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #1e293b;
+      --success: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
+    
+    header {
+      background: linear-gradient(135deg, #111827, #1e1b4b);
+      padding: 20px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 { font-size: 1.5rem; letter-spacing: 0.5px; }
+    header span { color: var(--accent); }
+    header p { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
+
+    .controls {
+      max-width: 900px;
+      margin: 18px auto 10px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    input[type="text"]:focus { border-color: var(--accent); }
+
+    .tabs { display: flex; gap: 8px; overflow-x: auto; }
+    .tab {
+      background: var(--card);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+
+    .grid {
+      max-width: 900px;
+      margin: 16px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-top { padding: 16px; }
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .badge.currency { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .card p { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+    .card-footer { padding: 12px 16px 16px; }
+    .btn {
+      width: 100%;
+      padding: 11px;
+      border: none;
+      border-radius: 9px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--accent-hover); }
+
+    /* Modal Popup */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 999;
+    }
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 400px;
+      width: 100%;
+      padding: 22px;
+      text-align: center;
+    }
+    .modal h2 { font-size: 1.2rem; margin-bottom: 8px; }
+    .modal p { color: var(--muted); font-size: 0.88rem; margin-bottom: 16px; }
+    .modal input, .modal select {
+      width: 100%;
+      padding: 11px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+    }
+    .close-btn {
+      margin-top: 10px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+  </style>
+
+  <!-- =========================================================
+       STEP 1: PASTE YOUR CPAGRIP CONTENT LOCKER SCRIPT BELOW
+       (Copy the <script> code from CPAGrip > Content Lockers)
+  ========================================================== -->
+  <script type="text/javascript">
+    // Example placeholder: Replace this comment with your CPAGrip locker script!
+    function triggerCPAGripLocker(rewardUrl) {
+      // If using CPAGrip's JS function (usually call_locker();), put it right below:
+      if (typeof call_locker === "function") {
+        call_locker();
+      } else {
+        // Fallback if you use a direct CPAGrip URL Locker instead of a script:
+        alert("CPAGrip Locker Triggered! Replace the placeholder in index.html with your real CPAGrip script or URL.");
+        // window.location.href = "YOUR_CPAGRIP_OFFERWALL_LINK_HERE";
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>Nexus<span>Drop</span> Rewards</h1>
+    <p>Complete 1 quick sponsor task to unlock curated Nexus Mods & Gaming Currency</p>
+  </header>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search mods, games, or currency..." onkeyup="renderItems()" />
+    <div class="tabs">
+      <button class="tab active" onclick="setFilter('all', this)">All Rewards</button>
+      <button class="tab" onclick="setFilter('mod', this)">Nexus Mods</button>
+      <button class="tab" onclick="setFilter('currency', this)">Game Currency</button>
+    </div>
+  </div>
+
+  <div class="grid" id="itemsGrid"></div>
+
+  <!-- Claim Popup Modal -->
+  <div class="modal-bg" id="claimModal">
+    <div class="modal">
+      <h2 id="modalTitle">Unlock Reward</h2>
+      <p id="modalDesc">Enter your details below and complete 1 quick human-verification task to unlock your link.</p>
+      <input type="text" id="playerId" placeholder="Enter In-Game Username or Email" />
+      <select id="platform">
+        <option value="PC">Platform: PC (Windows)</option>
+        <option value="Android">Platform: Android</option>
+        <option value="iOS">Platform: iOS</option>
+      </select>
+      <button class="btn" onclick="startTask()">Verify & Unlock Now</button>
+      <button class="close-btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    /* =================================================================
+       STEP 2: ADD AS MANY NEXUS MODS & CURRENCY REWARDS AS YOU WANT HERE!
+       Just copy one { ... }, block and paste it below to add a new item.
+    ================================================================== */
+    const rewardsList = [
+      {
+        title: "GTA V — NaturalVision Graphics Mod",
+        category: "mod",
+        game: "Grand Theft Auto V",
+        desc: "Ultra-realistic weather, lighting, and road textures curated from Nexus Mods.",
+        link: "https://nexusmods.com"
+      },
+      {
+        title: "Skyrim SE — Ultra Texture Overhaul Pack",
+        category: "mod",
+        game: "Skyrim Special Edition",
+        desc: "4K environment, armor, and water enhancements with full install guide.",
+        link: "https://nexusmods.com"
+      },
+      {
+        title: "Cyberpunk 2077 — Realistic Car Physics Mod",
+        category: "mod",
+        game: "Cyberpunk 2077",
+        desc: "Overhauls vehicle handling, braking, and drift physics for Night City.",
+        link: "https://nexusmods.com"
+      },
+      {
+        title: "Minecraft — BSL Shaders + Optifine Bundle",
+        category: "mod",
+        game: "Minecraft Java",
+        desc: "Real-time shadows, volumetric lighting, and smooth FPS boost pack.",
+        link: "https://nexusmods.com"
+      },
+      {
+        title: "800 Robux Digital Gift Code",
+        category: "currency",
+        game: "Roblox",
+        desc: "Complete sponsor tasks to earn points toward a verified 800 Robux code.",
+        link: "https://roblox.com"
+      },
+      {
+        title: "520 Free Fire Diamonds Voucher",
+        category: "currency",
+        game: "Garena Free Fire",
+        desc: "Instant top-up voucher unlocked after verifying task completion.",
+        link: "https://garena.sg"
+      }
+    ];
+
+    let currentFilter = 'all';
+    let selectedReward = null;
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderItems();
+    }
+
+    function renderItems() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const grid = document.getElementById('itemsGrid');
+      grid.innerHTML = '';
+
+      const filtered = rewardsList.filter(item => {
+        const matchesCat = currentFilter === 'all' || item.category === currentFilter;
+        const matchesText = item.title.toLowerCase().includes(query) || item.game.toLowerCase().includes(query);
+        return matchesCat && matchesText;
+      });
+
+      filtered.forEach((item, index) => {
+        const isCurrency = item.category === 'currency';
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="badge ${isCurrency ? 'currency' : ''}">${isCurrency ? 'CURRENCY' : 'NEXUS MOD'} • ${item.game}</span>
+            <h3>${item.title}</h3>
+            <p>${item.desc}</p>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="openModal('${item.title.replace(/'/g, "\\'")}', '${item.link}')">
+              ${isCurrency ? 'Claim Currency' : 'Get Mod Link'}
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openModal(title, link) {
+      selectedReward = { title, link };
+      document.getElementById('modalTitle').innerText = title;
